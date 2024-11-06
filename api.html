@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>Chamada de API</title>
+        <meta charset="utf-8">
+        <script>
+            function chamar_api(){
+                fetch('https://dog.ceo/api/breeds/image/random')
+                    .then(response => response.json())
+                    .then(data => exibir_imagem(data));
+            }
+            function exibir_imagem(data){
+                document.getElementById("img").src = data.message;
+            }
+            function consultar_todas_as_racas_api(){
+                fetch('https://dog.ceo/api/breeds/list/all')
+                    .then(response => response.json())
+                    .then(data => exibir_todas_as_racas(data));
+            }
+
+            function exibir_todas_as_racas(data){
+                const div = document.getElementById("lista");
+                div.innerHTML = "";
+                Object.keys(data.message).forEach(key => {
+                    console.log(key, data[key]);
+                    var div = document.getElementById("lista");
+                    const paragrafo = document.createElement("p");
+                    const texto = document.createTextNode(key);
+                    paragrafo.appendChild(texto);
+                    div.appendChild(paragrafo);
+                });
+            }
+
+        </script>
+    </head>
+    <body>
+        <h1>Chamada de API</h1>
+        <p id="p1">Clique no botão para executar a API.</p>
+        <button type="button" onclick="chamar_api();">Chamar API</button>
+        <img id="img">
+        <button type="button" onclick="consultar_todas_as_racas_api();">Consultar todas as raças</button>
+        <br>
+        <div id="lista" >
+    </body>
+</html>
